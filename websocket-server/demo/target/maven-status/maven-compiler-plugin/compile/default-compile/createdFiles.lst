@@ -3,5 +3,8 @@ com\example\demo\WebSocketConfig.class
 com\example\demo\DataChangeService.class
 com\example\demo\DemoApplication.class
 com\example\demo\MyRepository.class
+com\example\demo\service\RedisService.class
+com\example\demo\config\RedisConfig.class
 com\example\demo\MyEntity.class
 com\example\demo\MyWebSocketHandler.class
+com\example\demo\controller\DataController.class
