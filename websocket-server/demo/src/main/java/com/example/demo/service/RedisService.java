@@ -10,15 +10,15 @@ import java.util.concurrent.TimeUnit;
 public class RedisService {
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
-    public void saveData(String key, Object value, long timeout, TimeUnit unit) {
+    public void saveData(String key, String value, long timeout, TimeUnit unit) {
         redisTemplate.opsForValue().set(key, value, timeout, unit);
     }
 
     public Object getData(String key) {
         Object data = redisTemplate.opsForValue().get(key);
-        System.out.println("Retrieved data from Redis: " + data); // Debugging line
+        System.out.println("Retrieved data from Redis: " + data); 
         return data;
     }
 
