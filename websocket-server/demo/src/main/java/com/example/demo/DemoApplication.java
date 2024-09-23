@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableScheduling
+// @EnableScheduling
 @ComponentScan(basePackages = "com.example.demo") // Adjust if needed
 public class DemoApplication {
 
