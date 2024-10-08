@@ -61,6 +61,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
+@RequestMapping("/api")
 public class DataController {
 
     @Autowired
@@ -77,16 +78,15 @@ public class DataController {
         return dataChangeService.getCachedData();
     }
 
-@DeleteMapping("/entities/{id}")
-public ResponseEntity<Void> deleteEntity(@PathVariable Long id) {
-    dataChangeService.deleteEntityById(id);
+    @DeleteMapping("/entities/{id}")
+    public ResponseEntity<Void> deleteEntity(@PathVariable Long id) {
+        dataChangeService.deleteEntityById(id);
 
-    MyEntity deletedEntity = new MyEntity();
-    deletedEntity.setId(id); 
+        MyEntity deletedEntity = new MyEntity();
+        deletedEntity.setId(id);
 
-    return ResponseEntity.noContent().build();
-}
-
+        return ResponseEntity.noContent().build();
+    }
 
     @PostMapping("/entities")
     public ResponseEntity<MyEntity> saveEntity(@RequestBody MyEntity entity) {
