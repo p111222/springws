@@ -276,6 +276,8 @@ import com.example.demo.repository.MyRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+// import org.apache.logging.log4j.util.PropertySource.Comparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -286,6 +288,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.Comparator; 
 
 @Service
 public class DataChangeService {
@@ -396,16 +399,37 @@ public class DataChangeService {
         }
     }
 
+    // public List<MyEntity> getCachedData() {
+    // String jsonData = redisTemplate.opsForValue().get(REDIS_KEY);
+    // System.out.println("jsonData"+jsonData);
+    // if (jsonData != null) {
+    // try {
+    // return objectMapper.readValue(jsonData, new TypeReference<List<MyEntity>>() {
+    // });
+    // } catch (JsonProcessingException e) {
+    // e.printStackTrace();
+    // }
+    // }
+    // return new ArrayList<>();
+    // }
+
     public List<MyEntity> getCachedData() {
         String jsonData = redisTemplate.opsForValue().get(REDIS_KEY);
         if (jsonData != null) {
             try {
-                return objectMapper.readValue(jsonData, new TypeReference<List<MyEntity>>() {
+                // Deserialize JSON into a list of MyEntity objects
+                List<MyEntity> entityList = objectMapper.readValue(jsonData, new TypeReference<List<MyEntity>>() {
                 });
+
+                // Sort the list in reverse order by id
+                entityList.sort(Comparator.comparing(MyEntity::getId).reversed());
+
+                return entityList;
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
         }
         return new ArrayList<>();
     }
+
 }
